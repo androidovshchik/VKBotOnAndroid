@@ -26,8 +26,10 @@ class VKService : BaseService() {
 
     private var client: User? = null
 
+    // this may be used to control requests per user
     private var requests: ArrayList<Int> = ArrayList()
 
+    // custom condition and etc
     private val patternCode = Pattern.compile("^[0-9a-z]+\$", Pattern.CASE_INSENSITIVE)
 
     override fun onCreate() {
@@ -59,7 +61,7 @@ class VKService : BaseService() {
                 if (message.isMessageFromChat) {
                     Message().from(client)
                         .to(message.chatIdLong)
-                        .text("Извините, работаю только в личных сообщениях")
+                        .text("Sorry, i'm currently dislike groups chat")
                         .send()
                     client!!.chat(message.chatIdLong)
                         .kickUser(client!!.id)
@@ -69,13 +71,13 @@ class VKService : BaseService() {
                 if (text.length == 6 && patternCode.matcher(text).matches()) {
                     Message().from(client)
                         .to(message.authorId())
-                        .text("...")
+                        .text("Custom condition also works!")
                         .forwardedMessages(message.messageId)
                         .send()
                 } else {
                     Message().from(client)
                         .to(message.authorId())
-                        .text("Подождите")
+                        .text("It really works!!!")
                         .send()
                 }
             }
