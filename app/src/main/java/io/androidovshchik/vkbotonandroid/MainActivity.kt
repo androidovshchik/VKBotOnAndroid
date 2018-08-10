@@ -1,13 +1,19 @@
 package io.androidovshchik.vkbotonandroid
 
-import android.support.v7.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
+import com.github.androidovshchik.support.BaseV7PActivity
 
-class MainActivity : AppCompatActivity() {
+@SuppressLint("ExportedPreferenceActivity")
+class MainActivity : BaseV7PActivity() {
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val settings = SettingsFragment()
+        fragmentManager.beginTransaction()
+            .replace(android.R.id.content, settings)
+            .commit()
         /*
         /what_i_want_to_say
 /when_i_want_to_meet
